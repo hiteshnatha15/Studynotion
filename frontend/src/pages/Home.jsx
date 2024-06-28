@@ -27,7 +27,7 @@ function Home() {
             
                 const result = await getCatalogaPageData(categoryID,dispatch);
                 setCatalogPageData(result);
-                // console.log("page data",CatalogPageData);
+                console.log("page data",CatalogPageData);
             
         }
         if (categoryID) {
