@@ -1,0 +1,54 @@
+version: "3"
+services:
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:4000/api/v1
+      - REACT_APP_RAZORPAY_KEY_ID=rzp_test_Ei2rK7iOcV2Su2
+      - WDS_SOCKET_PORT=0
+    ports:
+      - 3000:3000
+  api:
+    image: api
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - 4000:4000
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    depends_on:
+      - mongodb
+    environment:
+      - API_KEY=463728395437836
+      - API_SECRET=4lQwi5Rt-7dgkj7BvyflA9zAYkk
+      - CLOUD_NAME=dwefpckto
+      - CONTACT_MAIL=study.notion.hitesh@gmail.com
+      - FOLDER_NAME=images
+      - FOLDER_VIDEO=videos
+      - JWT_SECRET=studynotion
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PASS=anta sbmd iodv uojw
+      - MAIL_USER=study.notion.hitesh@gmail.com
+      - MONGODB_URL=mongodb+srv://studynotionhitesh:OSZaUFb3BIfGha6y@studynotion.fq30p5c.mongodb.net/
+      - PORT=4000
+      - RAZORPAY_KEY=rzp_test_Ei2rK7iOcV2Su2
+      - RAZORPAY_SECRET=gQuICiW4PN8ufIDnDsZR8YV2
+      - NODE_ENV=development
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
